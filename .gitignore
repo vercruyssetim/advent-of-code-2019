@@ -2,6 +2,8 @@
 *.iml
 
 build
+out
+
 .gradle
 gradle
 gradlew
