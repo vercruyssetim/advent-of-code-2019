@@ -1,6 +1,9 @@
 package be.vercruysse.advent2019.day5;
 
 import be.vercruysse.advent2019.day5.opcode.*;
+import be.vercruysse.advent2019.day5.reader.ImmediateMode;
+import be.vercruysse.advent2019.day5.reader.ParamerReader;
+import be.vercruysse.advent2019.day5.reader.PositionMode;
 
 import java.util.ArrayList;
 import java.util.List;

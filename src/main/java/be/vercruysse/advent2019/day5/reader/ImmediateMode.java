@@ -1,4 +1,6 @@
-package be.vercruysse.advent2019.day5;
+package be.vercruysse.advent2019.day5.reader;
+
+import be.vercruysse.advent2019.day5.reader.ParamerReader;
 
 import java.util.List;
 
