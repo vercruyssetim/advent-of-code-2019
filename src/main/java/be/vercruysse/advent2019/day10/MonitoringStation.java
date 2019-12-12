@@ -1,18 +1,13 @@
 package be.vercruysse.advent2019.day10;
 
-import com.google.common.collect.Sets;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.List;
-import java.util.OptionalInt;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Collections.reverseOrder;
 
 public class MonitoringStation {
 
@@ -24,8 +19,19 @@ public class MonitoringStation {
 
     public static void main(String[] args) {
         MonitoringStation monitoringStation = new MonitoringStation(getAstroidList());
-        System.out.println(monitoringStation.findCoordinate());
+//        System.out.println(monitoringStation.findCoordinate());
+        System.out.println(monitoringStation.findXthCollision(new Coordinate(20,18), 200));
     }
+
+    private boolean findXthCollision(Coordinate coordinate, int i) {
+        astroidList.stream()
+                .filter(t -> Coordinate.canHit(coordinate, t, astroidList))
+                .sorted(Comparator.comparing(t -> coordinate.specialMinus(t)))
+                .limit(i)
+                .forEach(t -> System.out.println("" + t + " " + coordinate.specialMinus(t)));
+        return true;
+    }
+
 
     private int findCoordinate() {
         return astroidList.stream()
@@ -37,7 +43,6 @@ public class MonitoringStation {
     private int getNumberOfCollisions(Coordinate astroid) {
         int count = (int) astroidList.stream()
                 .filter(t -> Coordinate.canHit(astroid, t, astroidList))
-                .sorted()
                 .count();
         System.out.println("Number of collisions " + count + " found for " + astroid);
         return count;

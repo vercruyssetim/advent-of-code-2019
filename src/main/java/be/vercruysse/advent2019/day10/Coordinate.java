@@ -1,6 +1,5 @@
 package be.vercruysse.advent2019.day10;
 
-import java.lang.management.MemoryManagerMXBean;
 import java.util.Objects;
 import java.util.Set;
 
@@ -36,8 +35,20 @@ public class Coordinate {
         return new Coordinate(x + rico.getX(), y + rico.getY());
     }
 
-    private Rico minus(Coordinate otherAstroid) {
+    public Rico minus(Coordinate otherAstroid) {
         return new Rico(otherAstroid.x -x, otherAstroid.y - y);
+    }
+
+    public Rico specialMinus(Coordinate otherAstroid) {
+        return new Rico(otherAstroid.x -x, y - otherAstroid.y);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     @Override

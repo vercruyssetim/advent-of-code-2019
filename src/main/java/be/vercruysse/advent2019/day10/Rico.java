@@ -1,6 +1,6 @@
 package be.vercruysse.advent2019.day10;
 
-public class Rico {
+public class Rico implements Comparable<Rico>{
 
     private int x;
     private int y;
@@ -14,6 +14,16 @@ public class Rico {
             this.x = x;
             this.y = y;
         }
+    }
+
+    public float asNumber() {
+        if(x == 0) {
+            if(y < 0) {
+                return Integer.MIN_VALUE;
+            }
+            return Integer.MAX_VALUE;
+        }
+        return (float) y / (float) x;
     }
 
     public static int gcd(int a, int b) {
@@ -34,7 +44,30 @@ public class Rico {
         return "Rico{" +
                 "x=" + x +
                 ", y=" + y +
+                ", number=" + asNumber() +
                 '}';
     }
 
+    @Override
+    public int compareTo(Rico otherRico) {
+        int kwadrant = getKwadrant();
+        int otherKwadrant = otherRico.getKwadrant();
+        if(kwadrant == otherKwadrant) {
+            return Float.compare(otherRico.asNumber(), asNumber());
+        }
+        return kwadrant - otherKwadrant;
+    }
+
+    private int getKwadrant() {
+        if(x >= 0 && y > 0) {
+            return 1;
+        }
+        if(x >= 0 && y <= 0) {
+            return 2;
+        }
+        if(x < 0 && y <= 0) {
+            return 3;
+        }
+        return 4;
+    }
 }
