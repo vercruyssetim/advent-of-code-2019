@@ -18,7 +18,7 @@ public class InputOpcode implements Opcode {
         int position = parameterReaderList.get(0).readForPosition(index + 1, inputList).intValue();
         Long value = inputProvider.getInput();
 
-        System.out.println("Placing " + value + " at position " + position);
+//        System.out.println("Placing " + value + " at position " + position);
         inputList.set(position, value);
         return index + 2;
     }

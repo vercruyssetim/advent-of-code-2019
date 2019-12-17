@@ -12,7 +12,7 @@ public class AdjustRelativeBaseOpcode implements Opcode {
         Long value = parameterReaderList.get(0).readInput(index + 1, inputList);
 
         RelativeBase.getInstance().adjustBase(value);
-        System.out.println("Adjusting relative mode to " + RelativeBase.getInstance().getBase());
+//        System.out.println("Adjusting relative mode to " + RelativeBase.getInstance().getBase());
 
         return index + 2;
     }

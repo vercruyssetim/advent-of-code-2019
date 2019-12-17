@@ -4,6 +4,7 @@ import be.vercruysse.advent2019.day11.intcode.InstructionFactory;
 import be.vercruysse.advent2019.day11.intcode.IntcodeComputer;
 import be.vercruysse.advent2019.day11.intcode.io.SystemOutput;
 import be.vercruysse.advent2019.day11.intcode.io.UserInput;
+import be.vercruysse.advent2019.day11.playingfield.PlayingField;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,8 +17,14 @@ import java.util.stream.Stream;
 public class Main {
 
     public static void main(String[] args) {
-        IntcodeComputer intcodeComputer = new IntcodeComputer(getInput(), new InstructionFactory(new UserInput(), new SystemOutput()));
-        intcodeComputer.calculate();
+        PlayingField playingField = new PlayingField();
+        IntcodeComputer intcodeComputer = new IntcodeComputer(getInput(), new InstructionFactory(playingField, playingField));
+        try {
+            intcodeComputer.calculate();
+        } catch (RuntimeException exception) {
+            System.out.println(exception);
+        }
+        System.out.println(playingField);
     }
 
     private static List<Long> getInput() {
@@ -27,7 +34,7 @@ public class Main {
                 .split(","))
                 .map(Long::parseLong)
                 .collect(Collectors.toList());
-        for(int i = 0; i < 4000; i++) {
+        for (int i = 0; i < 4000; i++) {
             result.add(0L);
         }
         return result;
