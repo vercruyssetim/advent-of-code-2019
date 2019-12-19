@@ -10,18 +10,8 @@ public class RuleArgument {
         this.name = name;
     }
 
-    private String getName() {
-        return name;
-    }
-
     public boolean matches(Element element) {
         return name.equals(element.getName()) && element.getQuantity() >= quantity;
-    }
-
-    public RuleArgument multiply(int originalQuantity, int rightHandSideQuantity) {
-        int newQuantity = (int) (quantity * Math.ceil((double) originalQuantity/rightHandSideQuantity));
-        System.out.println("Loss " +  (double) (Math.ceil((double) originalQuantity/rightHandSideQuantity) - originalQuantity/rightHandSideQuantity));
-        return new RuleArgument(newQuantity, name);
     }
 
     public int getQuantity() {
@@ -40,5 +30,9 @@ public class RuleArgument {
 
     public Element toElement() {
         return new Element(quantity, name);
+    }
+
+    public boolean isFor(Element element) {
+        return name.equals(element.getName());
     }
 }

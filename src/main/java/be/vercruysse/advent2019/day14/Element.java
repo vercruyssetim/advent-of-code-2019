@@ -4,16 +4,16 @@ import java.util.Objects;
 
 public class Element {
 
-    private int quantity;
+    private long quantity;
     private final String name;
 
-    public Element(int quantity, String name) {
+    public Element(long quantity, String name) {
         this.quantity = quantity;
         this.name = name;
     }
 
 
-    public void multiply(int toMultiply) {
+    public void multiply(long toMultiply) {
         quantity *= toMultiply;
     }
 
@@ -21,7 +21,7 @@ public class Element {
         return name;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
@@ -29,7 +29,7 @@ public class Element {
         quantity -= toRemove;
     }
 
-    public void add(int toAdd) {
+    public void add(long toAdd) {
         quantity += toAdd;
     }
 
@@ -51,7 +51,7 @@ public class Element {
         return "" + quantity + " " + name;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 
