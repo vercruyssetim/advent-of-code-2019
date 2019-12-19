@@ -18,36 +18,23 @@ public class SpaceStoichiometry {
         RuleSet ruleSet = new RuleSet(getInput());
 
         long number = 0;
-        List<Element> elements = newArrayList(new Element(1, "FUEL"));
-        while (!elements.isEmpty()) {
-            List<Element> iteration = newArrayList(elements);
+        ElementList elementList = new ElementList(new Element(1, "FUEL"));
+        while (!elementList.isEmpty()) {
+            System.out.println(elementList);
+            List<Element> iteration = elementList.getElementList();
+            boolean change = false;
             for (Element element : iteration) {
-                elements.remove(element);
-                try {
-                    System.out.println(element + " => " + ruleSet.resolve(element));
-                    elements.addAll(ruleSet.resolve(element));
-                } catch(RuntimeException runtimeException) {
-                    number += element.getQuantity();
+                List<Element> resolve = ruleSet.resolve(element);
+                if(!resolve.isEmpty()){
+                    change = true;
                 }
+                elementList.addAll(resolve);
             }
-            System.out.println("new iteration!");
-            elements = elements.stream()
-                    .collect(ArrayList::new, SpaceStoichiometry::collector, ArrayList::addAll);
-
+            if(!change) {
+                elementList.increaseFirstElement();
+            }
         }
-        System.out.println(number);
-    }
-
-    private static void collector(List<Element> list, Element element) {
-        List<Element> elementsToRemove = new ArrayList<>();
-        Element newElement = list.stream()
-                .filter(listElement -> listElement.matches(element))
-                .peek(elementsToRemove::add)
-                .findFirst()
-                .map(listElement -> listElement.add(element.getQuantity()))
-                .orElse(element);
-        list.add(newElement);
-        list.removeAll(elementsToRemove);
+        System.out.println(elementList.getAmountOfOre());
     }
 
     private static List<Rule> getInput() {

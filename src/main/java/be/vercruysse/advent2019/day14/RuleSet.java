@@ -1,8 +1,7 @@
 package be.vercruysse.advent2019.day14;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 public class RuleSet {
     private List<Rule> rules;
@@ -15,8 +14,8 @@ public class RuleSet {
         return rules.stream()
                 .filter(r -> r.matches(element))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Element can not be reduced " + element))
-                .getResult(element);
+                .map(t -> t.getResult(element))
+                .orElse(new ArrayList<>());
 
     }
 }

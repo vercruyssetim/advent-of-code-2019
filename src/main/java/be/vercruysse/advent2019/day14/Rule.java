@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 
 public class Rule {
 
-    private final List<Element> leftHandSide;
-    private final Element rightHandSide;
+    private final List<RuleArgument> leftHandSide;
+    private final RuleArgument rightHandSide;
 
-    public Rule(List<Element> leftHandSide, Element rightHandSide) {
+    public Rule(List<RuleArgument> leftHandSide, RuleArgument rightHandSide) {
         this.leftHandSide = leftHandSide;
         this.rightHandSide = rightHandSide;
     }
@@ -22,13 +22,21 @@ public class Rule {
         return rightHandSide.matches(element);
     }
 
-    public List<Element> getLefthandSide() {
+    public List<RuleArgument> getLefthandSide() {
         return leftHandSide;
     }
 
     public List<Element> getResult(Element element) {
+        int multiply = element.getQuantity() / rightHandSide.getQuantity();
+        element.setQuantity(element.getQuantity() % rightHandSide.getQuantity());
         return leftHandSide.stream()
-                .map(element1 -> element1.multiply(element.getQuantity(), rightHandSide.getQuantity()))
+                .map(ruleArgument -> toElement(ruleArgument, multiply))
                 .collect(Collectors.toList());
+    }
+
+    private Element toElement(RuleArgument ruleArgument, int multiply) {
+        Element element = ruleArgument.toElement();
+        element.multiply(multiply);
+        return element;
     }
 }

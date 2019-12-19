@@ -10,9 +10,9 @@ public class RuleFactory {
         return new Rule(
                 stream(leftHandSide.split(", "))
                 .map(t -> t.split(" "))
-                .map(t -> new Element(parseInt(t[0]), t[1]))
+                .map(t -> new RuleArgument(parseInt(t[0]), t[1]))
                 .collect(Collectors.toList()),
-                new Element(
+                new RuleArgument(
                         parseInt(rightHandSide.split(" ")[0]),
                         rightHandSide.split(" ")[1])
         );
